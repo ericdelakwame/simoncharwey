@@ -1,0 +1,8 @@
+{% load i18n %}
+{% trans 'Update Press Entry' as tt %}
+
+{% with object as {{object}} %}
+    
+{% endwith %}
+    
+{% include 'home/forms/base_form.html' with form_title=tt object=object.feature %}

@@ -1,0 +1,56 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+
+{% block title %}
+Simon Charwey
+{% endblock title %}
+    
+
+{% block content %}
+<div id="container">
+  
+      <ul id="accordion">
+        <li data-required="true"  data-status="incomplete" data-selected="true" data-title="Work">Work  <p>lorem20</p></li>
+        <li data-required="true"  data-status="complete" data-title="Press">
+            
+            
+            {% include 'home/press.html' %}
+                
+        
+        </li>
+        <li data-required="true"  data-status="optional" data-title="Teaching">Teaching</li>
+        <li data-required="true"  data-status="optional" data-title="About">
+          {% include 'home/about.html' %}
+        </li>
+        <li data-required="true"  data-status="optional" data-title="Account">
+          <h2>Dont have an account?</h2>
+          <input type="text" placeholder="Join Now" />
+        </li>
+      </ul>
+  </div>
+{% endblock content %}
+
+
+
+{% block javascript %}
+
+<script>
+    var acjs = undefined;
+
+ 
+    $(document ).ready(function() {
+        try {
+          acjs = $('#accordion').accordionjs();
+        }
+        catch(error) {
+          console.log("Error:" + error);
+          alert("Error: "+ error);
+        }
+  }); // End $(document).ready(); 
+  </script>
+    
+{% endblock javascript %}
+    
+    

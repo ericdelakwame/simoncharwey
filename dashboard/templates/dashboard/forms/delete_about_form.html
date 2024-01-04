@@ -1,0 +1,9 @@
+{% load i18n %}
+{% trans 'Delete About Entry' as tt %}
+
+
+{% with object as {{object}} %}
+
+{% endwith %}
+
+{% include 'home/forms/base_form.html' with form_title=tt object=object.title %}

@@ -1,0 +1,19 @@
+*{
+  font-family: sans-serif !important;
+}
+body{
+  box-sizing: border-box;
+  background-color: #000;
+  min-height: 100%;
+  width: 100%;
+}
+#container {
+    width: 95%;
+    margin: 0 auto;
+    height: 100%;
+  }
+
+  .heading{
+    font-size: 35px;
+    color: #d1d1d1;
+  }

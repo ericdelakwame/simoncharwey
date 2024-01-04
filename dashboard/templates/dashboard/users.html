@@ -1,0 +1,73 @@
+{% load static %}
+{% load i18n %}
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{% static 'dashboard/css/users.css' %}">
+</head>
+<div id="users">
+    <h1 class="title center">{% trans 'Users' %}</h1>
+    <table id="user-table">
+        <thead>
+            <tr><th></th>
+                <th>{% trans 'First Name' %}</th>
+                <th>{% trans 'Last Name' %}</th>
+                <th>{% trans 'Joined' %}</th>
+                <th>{% trans 'Status' %}</th>
+                <th>{% trans 'Action' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for user in users %}
+                <tr>
+                    <td>
+                    {% if user.photo %}
+                        <img src="{{user.photo.url}}" alt="" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% endif %}
+                    </td>
+                    <td>{{user.first_name}}</td>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.date_joined}}</td>
+                    <td>
+                    {% if user.activated %}
+                        {% trans 'Active' %} 
+                        {% else %}
+                        {% trans 'Not Active ' %}
+                    {% endif %}
+                        </td>
+                        <td>
+                            {% if user.activated %}
+                                <a class="btn" href="{% url 'dashboard:deactivate_user' user.pk %}">{% trans 'Deactivate' %}</a>
+                                {% else %}
+                               <a class="btn-red" href="{% url 'dashboard:activate_user' user.pk %}">{% trans 'Activate' %}</a>
+                            {% endif %}
+                                </td>
+                                
+                </tr>
+            {% endfor %}
+                
+        </tbody>
+    </table>
+
+</div>
+
+
+
+{% block jquery %}
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $("#user-table").DataTable({
+        responsive: true,
+    })
+</script>        
+{% endblock jquery %}
+    
+
+{% block javascript %}
+
+{% endblock javascript %}
+    
+
+

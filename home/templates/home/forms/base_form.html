@@ -1,0 +1,112 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'home/css/form.css' %}">
+
+    {% block jquery %}
+    <script src="{% static 'home/jquery/jquery-3.6.0.min.js'  %}"></script>
+    <script src="{% static 'home/jquery-ui/jquery-ui.min.js' %}"></script>
+
+    {% endblock jquery %}
+
+    {% block title %}
+    {{form_title}}
+    {% endblock title %}
+
+</head>
+
+<div data-aos="fade-in" data-aos-delay="400" style="height: 100%; margin-top: 50px;position:relative">
+
+
+
+    <div class="login-box" style="height: 100%;">
+        <div class="fimg" style="width: 70%;"></div>
+        <h1 class="form-title">
+            {{form_title}}
+        </h1>
+        
+        {% if object %}
+        <div class="obj">
+            <h2>{{object}}</h2>
+        </div>
+        
+    
+        {% endif %}
+            
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.media}}
+
+            {% for field in form %}
+            <div class="user-box">
+                {{field.label_tag}}
+                {{field}}
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                {% trans 'Submit' %}
+            </button>
+
+            {% if form.errors %}
+            <div class="errors">
+                {{form.errors}}
+            </div>
+            {% endif %}
+
+        </form>
+        {% if not request.user.is_authenticated %}
+        <div class="social-login">
+
+            <!-- <a class="social-btn" href="{% url 'social:begin' 'twitter' %}"><i class="fas fa-twitter"></i></a> -->
+
+            <div class="social">
+                <h3><span style="color:#A57A52;">{% trans 'Login with' %} </span></h3>
+                <a class="social-btn" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fab fa-google"
+                        style="color: #d1d1d1;"></i></a>
+                <a class="social-btn" href="{% url 'social:begin' 'facebook' %}"><i class="fab fa-facebook"
+                        style="color: #d1d1d1;"></i></a>
+            </div>
+            <div class="register"
+                style="border-left: #A57A52 1px solid; border-right: #A57A52 1px solid;padding-left:20px; padding-right:20px">
+                <h3 style="color: #A57A52;">{% trans 'Dont Have An Account?' %} </h3>
+                <a class="submit-btn" href="{% url 'accounts:register' %}">{% trans 'Sign Up' %} </a>
+            </div>
+        </div>
+        <div class="forgot">
+            <h4>{% trans 'Forgot your password?' %} </h4>
+            <a class="social-btn" href="{% url 'accounts:password_reset' %}">{% trans 'Reset' %} </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}
+
+
+{% block footer %}
+
+{% endblock footer %}
+
+
+{% block javascript %}
+<script>
+    $('#date_picker').datepicker()
+</script>
+
+{% endblock javascript %}

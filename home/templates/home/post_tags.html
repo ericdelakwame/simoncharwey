@@ -1,0 +1,65 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block tabs %}
+
+{% endblock %}
+
+{% block content %}
+  <head>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'home/css/multislider.css' %}" />
+    <link rel="stylesheet" href="{% static 'home/css/posts.css' %}" />
+  </head>
+  <div id="posts">
+
+
+  <div class="container">
+    <h1 class="heading">Posts tagged with '{{tag}}'</h1>
+    
+    <h2 style="margin-bottom: 50px;">{{posts.count}} Post {{posts.count|pluralize}} found</h2>
+    <div id="mixedSlider">
+      <div class="MS-content">
+        
+        {% for post in posts %}
+            
+        <div class="item">
+          <div class="imgTitle">
+            <h2 class="blogTitle">{{post.title}}</h2>
+            
+            {% if post.banner %}
+            <img src="{{post.banner.url}}" alt="" />   
+            {% endif %}
+              
+           
+          </div>
+          <p>{{post.content|truncatechars:100}} ...</p>
+          <a href="{{post.get_absolute_url}}">Read More</a>
+        </div>      
+        {% endfor %}
+    
+       
+      </div>
+      <div class="MS-controls">
+        <button class="MS-left"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+        <button class="MS-right"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'home/js/multislider.js' %}"></script>
+  <script>
+    $('#basicSlider').multislider({
+      continuous: true,
+      duration: 2000
+    })
+    $('#mixedSlider').multislider({
+      duration: 750,
+      interval: 3000
+    })
+  </script>
+{% endblock %}

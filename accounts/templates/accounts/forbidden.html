@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %}You do not have access to this page{% endblock title %}
+    
+
+
+
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="{% static 'accounts/css/forbidden.css' %}">
+    </head>
+
+    <div id="forbidden">
+        <h1>Forbidden Request On African Design Matters</h1>
+        <p>Please contact support</p>
+    </div>
+{% endblock content %}
+    

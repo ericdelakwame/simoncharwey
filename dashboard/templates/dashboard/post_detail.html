@@ -1,0 +1,103 @@
+{% load embed_video_tags %}
+{% load hitcount_tags %}
+{% load i18n %}
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'dashboard/css/post_detail.css' %}" />
+</head>
+
+<div id="post-detail">
+  <div class="fimg" style="width: 100%;"></div>
+  <div id="post">
+    {% if post.banner %}
+      <div class="banner">
+        <img src="{{ post.banner.url }}" alt="" />
+      </div>
+    {% endif %}
+    <h6>{{ post.created }}</h6>
+    <div class="post-menu">
+      <a href="{% url 'dashboard:add_video' post.pk %}">{% trans 'Add Video' %}</a>
+      <a href="{% url 'dashboard:add_image' post.pk %}">{% trans 'Add Image' %}</a>
+      <a href="{% url 'dashboard:delete_post' post.pk %}">{% trans 'Delete Post' %}</a>
+      <a href="{% url 'dashboard:update_post' post.pk %}">{% trans 'Update Post' %}</a>
+    </div>
+    <h3 class="post-title">{{ post.title }}</h3>
+
+    {% if post.tags %}
+      <div class="main-tag">
+        <h3 class="title">{% trans 'Tags' %}</h3>
+        <div class="tags">
+          {% for tag in post.tags.all %}
+            <a href="">{{ tag }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="desc">
+        <h3 class="post-desc">{{post.description}}</h3>
+    </div>
+
+    {% if post.images %}
+      <div class="gallery">
+        <h1 class="title">{% trans 'Gallery' %}</h1>
+        <div class="images group-wrap">
+            
+            {% for item in post.images.all %}
+            <a href="{{item.image.url}}" class="yBox" data-ybox-group="group1">
+                <img src="{{item.image.url}}" alt="Image Alt 1" width="200" />
+              </a>
+            {% endfor %}
+                
+        </div>
+      </div>
+    {% endif %}
+
+    {% if post.video %}
+      <div class="video-container media">
+        <h1 class="title">{% trans 'Media' %}</h1>
+        {% video post.video '80%x600' %}
+      </div>
+    {% endif %}
+
+    <div class="comments">
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{form}}
+      <button type="submit" class="button" >
+        <svg>
+          <rect
+              x="0" y="0" 
+              fill="none"
+              width="100%"
+              height="100%"
+          />
+      </svg>
+      {% trans 'Submit' %}
+      </button>
+    </form>
+      {% if comments %}
+        <h1 class="title">{% trans 'Comments' %}</h1>
+        
+        {% for comment in comments %}
+          <div class="post-comments">
+            
+            {% if comment.author.photo %}
+             <img class="photo" src="{{post.author.photo.url}}" alt="">
+             <div class="comment">
+              <h4 class="message">{{comment.message}}</h4>
+              <h6 class="created">{{comment.created}}</h6>
+             </div>
+            {% endif %}
+              
+          </div>
+        {% endfor %}
+          
+        {% else %}
+        <h1 class="title">{% trans 'Be the first to comment' %}</h1>
+      {% endif %}
+        
+    </div>
+  </div>
+ 
+</div>

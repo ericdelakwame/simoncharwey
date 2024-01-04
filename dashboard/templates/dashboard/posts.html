@@ -1,0 +1,28 @@
+{% load static %}
+
+
+<div class="head">
+    <link rel="stylesheet" href="{% static 'dashboard/css/posts.css' %}">
+</div>
+<div id="posts">
+    <div class="fimg" style="width: 100%;"></div>
+    {% for post in posts %}
+    
+    <div class="post-container">
+        <h5 class="post-title"><a href="{% url 'dashboard:post_detail' post.pk %}">{{post.title}}</a></h5>
+        
+        {% if post.banner %}
+            <div class="banner">
+                <a href="{{post.banner.url}}" class="yBox" data-ybox-group="group1">
+                    <img src="{{post.banner.url}}" alt="Image Alt 1" width="200" />
+                  </a>
+            </div>
+        {% endif %}
+            
+    </div>
+   
+      
+    {% endfor %}
+        
+
+</div>

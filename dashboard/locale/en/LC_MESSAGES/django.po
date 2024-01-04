@@ -1,0 +1,155 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-24 17:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: dashboard/templates/dashboard/events.html:6
+#: dashboard/templates/dashboard/index.html:51
+msgid "Events"
+msgstr ""
+
+#: dashboard/templates/dashboard/events.html:11
+msgid "See More"
+msgstr ""
+
+#: dashboard/templates/dashboard/events.html:19
+msgid "Date"
+msgstr ""
+
+#: dashboard/templates/dashboard/events.html:20
+msgid "Start Time"
+msgstr ""
+
+#: dashboard/templates/dashboard/events.html:21
+#: dashboard/templates/dashboard/users.html:16
+msgid "Action"
+msgstr ""
+
+#: dashboard/templates/dashboard/events.html:28
+msgid "Remove"
+msgstr ""
+
+#: dashboard/templates/dashboard/index.html:26
+msgid "Site Admin"
+msgstr ""
+
+#: dashboard/templates/dashboard/index.html:35
+#: dashboard/templates/dashboard/index.html:97
+#: dashboard/templates/dashboard/users.html:8
+msgid "Users"
+msgstr ""
+
+#: dashboard/templates/dashboard/index.html:41
+msgid "All Posts"
+msgstr ""
+
+#: dashboard/templates/dashboard/index.html:46
+msgid "Dashboard"
+msgstr ""
+
+#: dashboard/templates/dashboard/index.html:65
+msgid "Site Content"
+msgstr ""
+
+#: dashboard/templates/dashboard/index.html:74
+msgid "New Topic"
+msgstr ""
+
+#: dashboard/templates/dashboard/index.html:79
+msgid "New Event"
+msgstr ""
+
+#: dashboard/templates/dashboard/index.html:84
+msgid "New Photo"
+msgstr ""
+
+#: dashboard/templates/dashboard/index.html:99
+msgid "User Locations"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:19
+msgid "Add Video"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:20
+msgid "Add Image"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:21
+msgid "Delete Post"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:22
+msgid "Update Post"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:28
+msgid "Tags"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:43
+msgid "Gallery"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:58
+msgid "Media"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:76
+msgid "Submit"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:80
+msgid "Comments"
+msgstr ""
+
+#: dashboard/templates/dashboard/post_detail.html:97
+msgid "Be the first to comment"
+msgstr ""
+
+#: dashboard/templates/dashboard/users.html:12
+msgid "First Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/users.html:13
+msgid "Last Name"
+msgstr ""
+
+#: dashboard/templates/dashboard/users.html:14
+msgid "Joined"
+msgstr ""
+
+#: dashboard/templates/dashboard/users.html:15
+msgid "Status"
+msgstr ""
+
+#: dashboard/templates/dashboard/users.html:33
+msgid "Active"
+msgstr ""
+
+#: dashboard/templates/dashboard/users.html:35
+msgid "Not Active "
+msgstr ""
+
+#: dashboard/templates/dashboard/users.html:40
+msgid "Deactivate"
+msgstr ""
+
+#: dashboard/templates/dashboard/users.html:42
+msgid "Activate"
+msgstr ""
