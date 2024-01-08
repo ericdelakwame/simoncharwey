@@ -1,5 +1,11 @@
+{% extends 'home/base.html' %}
+
 {% load static %}
 {% load i18n %}
+
+
+{% block content %}
+    
 <head>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{% static 'dashboard/css/users.css' %}">
@@ -50,6 +56,8 @@
     </table>
 
 </div>
+    
+{% endblock content %}
 
 
 

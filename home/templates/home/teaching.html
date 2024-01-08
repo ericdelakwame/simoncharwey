@@ -1,0 +1,25 @@
+{% load static %}
+
+
+{% block content %}
+    <div id="teaching">
+        {% comment %} <h1 class="heading">
+            About Simon Charwey
+        </h1> {% endcomment %}
+
+         <div class="entries">           
+        {% for entry in teaching_entries %}
+       <div class="entry">
+        <h2 class="title">{{entry.title}}</h2>
+        <p class="content">
+            {{entry.content|safe}}
+        </p>
+       </div>
+            
+        {% endfor %}
+
+    </div>
+            
+    </div>
+{% endblock content %}
+    

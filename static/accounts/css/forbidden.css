@@ -1,0 +1,10 @@
+#forbidden{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 95%;
+    margin: 80px auto;
+    height: 100vh;
+}
+
+

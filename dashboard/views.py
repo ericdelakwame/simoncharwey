@@ -41,9 +41,9 @@ class AdminTestMixin(UserPassesTestMixin, LoginRequiredMixin):
 def site_view(request):
     site_labels = ['Users', 'Posts', 'Comments']
     site_data = []
-    users_count = User.objects.values('id').count()
-    posts_count = Post.objects.values('id').count()
-    comments_count = Comment.objects.values('id').count()
+    users_count = User.objects.count()
+    posts_count = Post.objects.count()
+    comments_count = Comment.objects.count()
     site_data.append(users_count)
     site_data.append(posts_count)
     site_data.append(comments_count)
@@ -91,7 +91,7 @@ class DeactivateUser(AdminTestMixin, TemplateView):
 
 
 class UsersView(TemplateView):
-    template_name = 'dashboard/index.html'
+    template_name = 'dashboard/users.html'
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -100,7 +100,7 @@ class UsersView(TemplateView):
 
 
 class PostsView(TemplateView):
-    template_name = 'dashboard/index.html'
+    template_name = 'dashboard/posts.html'
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -111,7 +111,7 @@ class PostsView(TemplateView):
 
 class PostDetailView(LoginRequiredMixin, DetailView, FormView):
     model = Post
-    template_name = 'dashboard/index.html'
+    template_name = 'home/post_detail.html'
     form_class = CommentForm
 
     def get_context_data(self, **kwargs):
@@ -323,3 +323,46 @@ class DeleteWork(AdminTestMixin, DeleteView):
         work = get_object_or_404(Work, pk=pk)
         context["object"] = work
         return context
+
+# TEACHING
+
+class TeachingEntry(AdminTestMixin, CreateView, FormView):
+    model = Teaching
+    template_name = 'dashboard/forms/teaching_form.html'
+    success_url = '/dashboard'
+    form_class = TeachingForm
+    
+    def  form_valid(self, form):
+        teaching = form.save()
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        return response
+    
+    
+class UpdateTeaching(AdminTestMixin, UpdateView):
+    template_name = 'dashboard/forms/update_teaching_form.html'
+    form_class = TeachingForm
+    success_url = '/dashboard'
+    model = Teaching
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs['pk']
+        teaching = get_object_or_404(Teaching, pk=pk)
+        context["object"] = teaching
+        return context
+
+class DeleteTeaching(AdminTestMixin, DeleteView):
+    template_name = 'dashboard/forms/delete_teaching_form.html'
+    success_url = '/dashboard'
+    model = Teaching
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs['pk']
+        teaching = get_object_or_404(Teaching, pk=pk)
+        context["object"] = teaching
+        return context
+

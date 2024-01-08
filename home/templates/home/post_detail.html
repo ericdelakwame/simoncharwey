@@ -2,148 +2,149 @@
 {% load static %}
 {% load embed_video_tags %}
 {% load hitcount_tags %}
-{% comment %} {% load social_share %} {% endcomment %}
 {% load humanize %}
+{% load i18n %}
+
+{% block title %}
+  {{ post.title }}
+{% endblock %}
+
 {% block content %}
   <head>
     <link rel="stylesheet" href="{% static 'home/css/post_detail.css' %}" />
   </head>
 
-  <section class="row">
-    {% block tabs %}
-
-    {% endblock %}
-
-    <div class="vidLibrary" data-aos="fade-up">
-      <h2>{{ post.title }}</h2>
-
-      {% if post.video %}
-        <div class="vidcontrol">
-          {% video post.video '80%x600' %}
+  <section class="famdashboard" style="width: 100%;">
+    <div class="incard" style="background-position:bottom">
+      <div class="rightH">
+        <div class="space-card flex-down">
+          <div class="dashboard1">
+            <div class="somin1"></div>
+          </div>
         </div>
-      {% endif %}
-
-      <div class="vid-dets row">
-        <small>{{ post.created }}</small>
-        <small style="margin: 0 5vw;">{{ post.location }}</small>
       </div>
-      <div class="shareing row">
-        <label style="margin-right: 1.2vw;">{% get_hit_count for post %}Views</label>
-        <a href="" class="pill-tabs">Post to Instagram</a>
-        <a href="" class="pill-tabs">Post to twitter</a>
-        <a href="" class="pill-tabs">Post to Facebook</a>
-      </div>
-      <div class="addTags row">
-        <label style="color: var(--admgreen);margin-right: 1.2vw;">Tags</label>
-
-        {% for tag in post.tags.all %}
-          <a href="{% url 'home:post_tags' tag %}" class="pill-tabs">{{ tag }}</a>
-        {% endfor %}
-      </div>
+      <div class="leftH"></div>
     </div>
-  </section>
 
-  
-    <section class="seemore">
-      <h2 data-aos="fade-up">{{post.sub_heading}}</h2>
-      <p data-aos="fade-up">{{post.description}}</p>
-      <button data-aos="fade-up" class="gBtn">See More</button>
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <h2 data-aos="fade-up">{{post.author}}</h2>
+    <div id="post-detail" class="dashboard">
+      <h1 class="title">{{ post.title }}</h1>
+      <h2 class="subheading">{{post.subheading}}</h2>
       
-      {% if post.images %}
-      <div data-aos="fade-up" class="swiper2" style="overflow: hidden;padding: 5vw 4vw;background-color: white;position: relative;">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img class="detscaro" src="{{post.banner.url}}" alt="" />
-            {% comment %} <div class="txt">
-              <h2>Check {{post.author.first_name}}`s Profile</h2>
-              <h4><a href="{% url 'accounts:user_profile' post.author.pk %}">See profile</a></h4>
-            </div> {% endcomment %}
+      {% if post.banner %}
+        <div class="banner">
+          <img src="{{ post.banner.url }}" alt="" />
+        </div>
+      {% endif %}
+      <h4 class="created">{{ post.created|naturaltime }}  {{ post.author }}</h4>
+      {% if request.user == post.author %}
+        <div class="post-menu">
+          <a class="nav-link" href="{% url 'dashboard:add_image' post.pk %}">{% trans 'Add Image' %}</a>
+          <a class="nav-link" href="{% url 'dashboard:add_video' post.pk %}">{% trans 'Add Video' %}</a>
+          <a class="nav-link" href="{% url 'dashboard:update_post' post.pk %}">{% trans 'Update Post' %}</a>
+          <a class="nav-link" href="{% url 'dashboard:delete_post' post.pk %}">{% trans 'Delete Post' %}</a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="main-post">
+      <div class="post">
+        <div class="post-body">
+          <span style="font-size: 30px;"><i class="fa fa-eye"></i> {% get_hit_count for post %}{% trans 'Views' %}</span>
+        </div>
+
+        {% if post.tags %}
+          <div id="tgs">
+            <h2 class="tag-heading">{% trans 'Tags' %}</h2>
+            <div class="tags">
+              {% for tag in post.tags.all %}
+                <a href="{% url 'home:post_tag' tag %}">{{ tag }}</a>
+              {% endfor %}
+            </div>
           </div>
-          
-          {% if post.images %}
-            
+        {% endif %}
+
+        <div id="post-content">
+          <p class="desc">{{ post.description|linebreaks }}</p>
+        </div>
+
+        {% if post.video %}
+          <div class="video">
+            {% video post.video '80%x600' %}
+          </div>
+        {% endif %}
+
+        {% if post.images.count > 0 %}
+          <h1 class="sub-title">{% trans 'Image Gallery' %}</h1>
+          <div class="group-wrap" style="margin-top: -25px;">
             {% for item in post.images.all %}
-              
-          <div class="swiper-slide">
-            <img class="detscaro" src="{{ite.image.url}}" alt="" />
-            <div class="txt">
-            {% comment %} <h2>HIKMA COMMUNITY COMPLEX</h2> {% endcomment %}
-              <h4>Uploaded on {{item.image.created|naturaltime}}</h4> 
-            </div>
-          </div>  
+              <a class="yBox" data-ybox-group="group1" href="{{ item.image.url }}"><img  src="{{ item.image.url }}" alt="Image Alt 1" width="200" /></a>
             {% endfor %}
-              
+          </div>
+        {% endif %}
+
+          
+            
+          {% if post.videos.count > 0 %}
+            <h1 class="sub-title">{% trans 'Video Gallery' %}</h1>
+            <div class="post-videos group-wrap" style="margin-top: -25px;">
+            {% for item in post.videos.all %}
+        <a href="{{item.video.url}}" class="yBox yBox_iframe"  data-ybox-group="group2" width="300" height="300">{% video item.video '300x300' %} </a>              
+            {% endfor %}
+          </div>
           {% endif %}
-           
-        </div>
-        <div class="swiper-pagination"></div>
-      </div>    
-      {% endif %}
-        
-    
-    </section>
+            
+        {% if post.comments %}
+          <div id="comments-section">
+            <h1 class="comment-count">{{ post.comments.count }} {% trans 'Comment' %}{{ post.comments.count|pluralize }}</h1>
 
-  <section class="messenger">
-    <div class="messageSection">
-      {% if post.comments %}
-        <h2>{{ post.comments.count }} Comment{{ post.comments.count|pluralize }}</h2>
-      {% endif %}
-
-      {% for comment in post.comments.all %}
-        <div class="messageCont" data-aos="fade-up">
-          <div class="messagepost">
-            {% if comment.auth.photo %}
-              <div class="msgProfile">
-                <img src="{{ comment.author.photo.url }}" alt="" />
-              </div>
-            {% endif %}
-
-            <div class="messagetxt">
-              <h2>{{ comment.author }}</h2>
-              <p style="margin-top: 0;">{{ comment.message }}</p>
-              <div class="favico">
-                <button class="buttonicon"><i class="far fa-heart"></i></button>
-                <button class="buttonicon"><i class="fas fa-paper-plane"></i></button>
-                <button class="buttonicon"><i class="far fa-comment-alt"></i></button>
-                <button class="buttonicon"><i class="fas fa-share-alt"></i></button>
-                <button class="buttonicon"><i class="fas fa-bookmark"></i></button>
-              </div>
-            </div>
+            {% for comment in post.comments.all %}
+              <li>
+                <div class="comment">
+                  {% if comment.author.photo %}
+                    <div class="comment-img">
+                      <img src="{{ comment.author.photo.url }}" alt="" />
+                    </div>
+                  {% endif %}
+                  <div class="comm" style="margin-left: 15px;">
+                    <h3 class="message">{{ comment.message }}</h3>
+                    <h5 class="created">{{ comment.created }}<span class="author">{{ comment.author }}</span></h5>
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
           </div>
-          <div class="reply-inputline">
-            {% if request.user.photo %}
-              <img src="{{ request.user.photo.url }}" alt="" />
-            {% endif %}
+        {% endif %}
 
-            <div class="txt">
-              <input type="text" placeholder="Reply to {{ post.author }}" />
-            </div>
-            <div class="bb" style="display: flex;justify-content: end;width: 100%;margin: 1.5rem 0;">
-              <button class="gBtn-sm">Submit</button>
-            </div>
+{% if request.user.is_authenticated %}
+<form id="comment-form" action="" method="POST">
+  {% csrf_token %}
+  {{ form }}
+  <button id="form-button" type="submit">Send</button>
+</form>
+{% else %}
+<h2 class="heading">
+  You must be logged in to comment. Thanks
+</h2>
+{% endif %}
+  
+       
+
+
+      <div class="side">
+        {% if other_posts %}
+          <div id="other">
+            <h3 class="sub-title">{% trans 'Other Posts' %}</h3>
           </div>
 
-          <div class="reply-inputarea">
-            <div style="display: flex;">
-              <img src="{% static 'home/img/Avatar preview.png' %}" alt="" />
-              <h4>wilhelmcharwey</h4>
+          {% for post in other_posts %}
+            <div class="other-container" style="border-bottom: #A57A52 1px solid;">
+              <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
             </div>
-            <div class="">
-              <textarea name="replyArea" placeholder="Reply to profgalloway" id="" rows="10"></textarea>
-            </div>
-            <div class="bb" style="display: flex;justify-content: end;width: 100%;margin: 1.5rem 0;">
-              <button class="gBtn-sm">Submit</button>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
+          {% endfor %}
+        {% endif %}
+      </div>
+      </div>
+
     </div>
   </section>
 {% endblock %}

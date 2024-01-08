@@ -2,29 +2,27 @@
 {% load static %}
 {% load i18n %}
 
-
-
 {% block tabs %}
-  
-{% endblock tabs %}
-  
+
+{% endblock %}
+
 {% block content %}
-{% block title %}Dashboard{% endblock title %}
+  {% block title %}
+    Dashboard
+  {% endblock %}
 
   <head>
     <link rel="stylesheet" href="{% static 'dashboard/css/index.css' %}" />
-    <link rel="stylesheet" href="{% static 'dashboard/css/drop.css' %}">
-    <link rel="stylesheet" href="{% static 'home/datatables/css/dataTables.bootstrap4.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'home/datatables/css/dataTables.jqueryui.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'home/datatables/css/jquery.dataTables.min.css' %}" />
-    
-      </head>
-  <h2 style="margin-left: 2.5%; color: var(--admgreen2);">Site Management</h2>
-  <section id="dash" style="margin-top: 20px;">
-   
-    <div class="side" style="margin-top: 40px;">
+    <link rel="stylesheet" href="{% static 'dashboard/css/drop.css' %}" />
+    <link rel="stylesheet" href="{% static 'dashboard/datatables/css/dataTables.bootstrap4.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'dashboard/datatables/css/dataTables.jqueryui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'dashboard/datatables/css/jquery.dataTables.min.css' %}" />
+  </head>
+  
 
-      
+  <div id="dash" style="margin-top: 40px;">
+    <h2 class="heading" >Site Management</h2>
+    <div id="navs">
       <nav class="accordion-container" style="border-bottom: #949494 1px solid; margin-right: 10px;">
         <div class="main-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -34,7 +32,9 @@
             <path d="M3 6c0 1.072 1.144 2.062 3 2.598s4.144 .536 6 0c1.856 -.536 3 -1.526 3 -2.598c0 -1.072 -1.144 -2.062 -3 -2.598s-4.144 -.536 -6 0c-1.856 .536 -3 1.526 -3 2.598z"></path>
             <path d="M3 6v10c0 .888 .772 1.45 2 2"></path>
             <path d="M3 11c0 .888 .772 1.45 2 2"></path>
-          </svg>{% trans 'Site Admin' %}<svg xmlns="http://www.w3.org/2000/svg" class="expand-icon" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          </svg>
+          {% trans 'Site Admin' %}
+          <svg xmlns="http://www.w3.org/2000/svg" class="expand-icon" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M9 6l6 6l-6 6" />
           </svg>
@@ -61,7 +61,6 @@
             <div class="line-horizontal"></div>
             <a href="" title="Shop">{% trans 'Merchandise' %}</a>
           </li>
-        
         </ul>
       </nav>
       <nav class="accordion-container">
@@ -73,17 +72,23 @@
             <path d="M3 6c0 1.072 1.144 2.062 3 2.598s4.144 .536 6 0c1.856 -.536 3 -1.526 3 -2.598c0 -1.072 -1.144 -2.062 -3 -2.598s-4.144 -.536 -6 0c-1.856 .536 -3 1.526 -3 2.598z"></path>
             <path d="M3 6v10c0 .888 .772 1.45 2 2"></path>
             <path d="M3 11c0 .888 .772 1.45 2 2"></path>
-          </svg>{% trans 'Site Content' %}<svg xmlns="http://www.w3.org/2000/svg" class="expand-icon" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          </svg>
+          {% trans 'Site Content' %}
+          <svg xmlns="http://www.w3.org/2000/svg" class="expand-icon" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M9 6l6 6l-6 6" />
           </svg>
         </div>
         <ul>
-         
           <li>
             <div class="line-vertical"></div>
             <div class="line-horizontal"></div>
-            <a href="" title="New Project">{% trans 'New Project' %}</a>
+            <a href="{% url 'dashboard:work_entry' %}" title="Work">{% trans 'Work Content' %}</a>
+          </li>
+          <li>
+            <div class="line-vertical"></div>
+            <div class="line-horizontal"></div>
+            <a href="{% url 'dashboard:teaching_entry' %}" title="Teaching">{% trans 'Teaching Content' %}</a>
           </li>
           <li>
             <div class="line-vertical"></div>
@@ -95,103 +100,64 @@
             <div class="line-horizontal"></div>
             <a href="{% url 'dashboard:new_press' %}" title="New Press Entry">{% trans 'New Press Entry' %}</a>
           </li>
-         
-          
         </ul>
-      </nav>        
+      </nav>
     </div>
-    <div class="dash-content">
-      
-      <div class="dash">
-        
-        <div class="chartjs" data-aos="fade-left" style="width: 100%;height: 350px;">
-          <div class="chartTitle">
-            <h2>Admin Dashboard</h2>
-          </div>
-          <canvas id="myChart" ></canvas>
-        
-        </div>
+    <div class="chartjs" data-aos="fade-left" style="width: 100%;">
+      <div class="chartTitle">
+        <h2>Admin Dashboard</h2>
+      </div>
+      <canvas id="myChart" ></canvas>
     </div>
-  </section>
-  
-  <section id="other">
-    {% if users %}
-    {% include 'dashboard/users.html' %}
-  {% endif %}
-
-
-  {% if posts %}
-    {% include 'dashboard/posts.html' %}#users
-  {% endif %} 
-
-
-  {% if post %}
-    {% include 'dashboard/post_detail.html' %}
-  {% endif %}
-
-    
-</div>
-</div>
-
-</section>       
-    
- 
-
-  
-{% endblock content %}
+  </div>
+{% endblock %}
 
 {% block javascript %}
-<script src="{% static 'dashboard/js/drop.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-
+  <script src="{% static 'dashboard/js/drop.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
   <script>
     $.ajax({
-      url : '/dashboard/site/view',
+      url: '/dashboard/site/view',
       dataType: 'json',
       method: 'GET',
-      success: function(data){
+      success: function (data) {
         siteChart(data)
-        
       }
     })
-  const ctx1 = document.getElementById('myChart');
-  function siteChart(data){
-    new Chart(ctx1, {
-      type: 'bar',
-      data: {
-        labels: data.labels,
-        datasets: [
-          //{
-           // label: "Light Gray",
-           // backgroundColor: "#696969",
+    const ctx1 = document.getElementById('myChart')
+    function siteChart(data) {
+      new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [
+            //{
+            // label: "Light Gray",
+            // backgroundColor: "#696969",
             //data: [3,7,5]
-        //},
-        //{
+            //},
+            //{
             //label: "Gray",
             //backgroundColor: "#26262B",
             //data: [4,4,2]
-        //},
-        {
-            label: 'Site Stats',
-            backgroundColor: ["#696969", '#DFBA65', '#343434','#949494'],
-            data: data.data,
-        }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+            //},
+            {
+              label: 'Site Stats',
+              backgroundColor: ['#696969', '#DFBA65', '#343434', '#949494'],
+              data: data.data
+            }
+          ]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      },
-      
-    });
-  }
-</script>
-<!-- MAP -->
-
-{% endblock javascript %}
-
-
+      })
+    }
+  </script>
+  <!-- MAP -->
+{% endblock %}

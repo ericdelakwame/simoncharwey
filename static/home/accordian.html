@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html itemscope="itemscope" itemtype="http://schema.org/WebPage"><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>AccordionJS Test</title>  
+
+  <script src="js/jquery-min.js"></script>
+  <script src="https://use.fontawesome.com/13aaee5812.js"></script> <!-- Stuart's code can't use in production -->
+    
+  <link rel="stylesheet" type="text/css" href="css/jquery.accordionjs.css" />
+  <script src="js/jquery.accordionjs.js"></script>       
+
+  
+  <script>
+    var acjs = undefined;
+
+ 
+    $(document ).ready(function() {
+        try {
+          acjs = $('#accordion').accordionjs();
+        }
+        catch(error) {
+          console.log("Error:" + error);
+          alert("Error: "+ error);
+        }
+  }); // End $(document).ready(); 
+  </script>
+
+  <style type="text/css">
+  #container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  </style>
+</head>
+    
+  
+  
+<body dir="ltr">      
+<div id="container">
+  <h1>Accordion</h1>
+    <ul id="accordion">
+      <li data-required="true"  data-status="incomplete" data-selected="true" data-title="North">Never</li>
+      <li data-required="true"  data-status="complete" data-title="East">Eat</li>
+      <li data-required="true"  data-status="disabled" data-title="South">Shredded</li>
+      <li data-required="false"  data-status="optional" data-title="West">Wheat</li>
+      <li data-required="false"  data-status="optional">
+        <h2>Content title</h2>
+        <input type="text" placeholder="DOM test" />
+      </li>
+    </ul>
+</div>
+    
+</body>
+</html>

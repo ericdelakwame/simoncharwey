@@ -1,0 +1,27 @@
+#header{
+display: flex;
+justify-content: space-between;
+width: 95%;
+align-items: center;
+margin: auto;
+min-height: 60px;
+}
+
+#menu{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+#menu a{
+    color: #d1d1d1;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 16px;
+}
+
+#brand h1{
+    color: #d1d1d1;
+    font-size: 25px;
+}

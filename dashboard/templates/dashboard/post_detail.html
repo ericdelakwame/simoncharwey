@@ -1,7 +1,12 @@
+{% extends 'home/base.html' %}
 {% load embed_video_tags %}
 {% load hitcount_tags %}
 {% load i18n %}
 {% load static %}
+
+
+
+{% block content %}
 <head>
   <link rel="stylesheet" href="{% static 'dashboard/css/post_detail.css' %}" />
 </head>
@@ -101,3 +106,6 @@
   </div>
  
 </div>
+
+{% endblock content %}
+  

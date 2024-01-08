@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     IndexView,    ActivateUser, DeactivateUser, UsersView, PostsView, PostDetailView,
-    AddPostVideo, UpdatePostView, PostDeleteView, AddPostImage,  site_view,  NewPost, NewPress, UpdatePress, DeletePress, AboutEntry, UpdateAbout, DeleteAbout, WorkEntry, UpdateWork, DeleteWork
+    AddPostVideo, UpdatePostView, PostDeleteView, AddPostImage,  site_view,  NewPost, NewPress, UpdatePress, DeletePress, AboutEntry, UpdateAbout, DeleteAbout, WorkEntry, UpdateWork, DeleteWork, TeachingEntry, DeleteTeaching, UpdateTeaching
   
 )
 
@@ -30,4 +30,10 @@ urlpatterns = [
     path('work/entry', WorkEntry.as_view(), name='work_entry'),
     path('update/work/<int:pk>', UpdateWork.as_view(),  name='update_work'),
     path('delete/work/<int:pk>', DeleteWork.as_view(), name='delete_work'),
+    path('teaching/entry', TeachingEntry.as_view(), name='teaching_entry'),
+    path('update/teaching/<int:pk>', UpdateTeaching.as_view(), name='update_teaching'),
+    path('delete/teaching/<int:pk>', DeleteTeaching.as_view(), name='delete_teaching'),
+    
+
 ]
+

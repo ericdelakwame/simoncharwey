@@ -6,9 +6,6 @@ from .models import (
 from embed_video.fields import EmbedVideoFormField
 
 
-# PostImageFormSet = inlineformset_factory(Post, PostImage, fields=['image',], extra=2,      can_delete=True)
-
-
 class PostForm(forms.ModelForm):
     video = EmbedVideoFormField(widget=forms.URLInput(attrs={
         'class': 'video'

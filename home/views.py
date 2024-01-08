@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+
 from .models import (
     Post, Comment, 
 )
@@ -11,6 +13,8 @@ from django.views.generic import (
 from django.views.generic.edit import (
     CreateView, FormView
 )
+from .forms import CommentForm
+
 
 class IndexView(TemplateView):
     template_name = 'home/index.html'
@@ -26,6 +30,7 @@ class IndexView(TemplateView):
         context["teaching_entries"] = teaching_entries
         context["about_entries"] = about_entries
         context["press_entries"] = press_entries
+        context["work_entries"] = work_entries
         
         return context
 
@@ -39,15 +44,17 @@ class PostsView(TemplateView):
         return context
     
     
-class PostDetailView(DetailView):
+class PostDetailView(DetailView, FormView):
     template_name = 'home/post_detail.html'
     model = Post
+    form_class = CommentForm
     
     def form_valid(self, form):
         comment = form.save(commit=False)
         pk = self.kwargs['pk']
         post = get_object_or_404(Post, pk=pk)
         comment.post = post
+        comment.author = self.request.user
         comment.save()
         return super().form_valid(form)
     
@@ -63,7 +70,11 @@ class PostDetailView(DetailView):
         other_posts = Post.objects.exclude(pk=post.pk)
         context['other_posts'] = other_posts
         return context
-
+    
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        post = get_object_or_404(Post, pk=pk)
+        return reverse('home:post_detail', kwargs={'pk': post.pk})
 
 class TagView(TemplateView):
     template_name = 'home/post_tags.html'

@@ -6,30 +6,69 @@
 {% block title %}
 Simon Charwey
 {% endblock title %}
-    
+
 
 {% block content %}
+
+<head>
+  <style>
+    #settings {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 20px;
+    }
+
+    #settings a {
+      text-decoration: none;
+      font-size: 18px;
+      color: var(--admgreen);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      border: var(--admgreen) 1px solid;
+    }
+  </style>
+</head>
 <div id="container">
-  
-      <ul id="accordion">
-        <li data-required="true"  data-status="incomplete" data-selected="true" data-title="Work">Work  <p>lorem20</p></li>
-        <li data-required="true"  data-status="complete" data-title="Press">
-            
-            
-            {% include 'home/press.html' %}
-                
-        
-        </li>
-        <li data-required="true"  data-status="optional" data-title="Teaching">Teaching</li>
-        <li data-required="true"  data-status="optional" data-title="About">
-          {% include 'home/about.html' %}
-        </li>
-        <li data-required="true"  data-status="optional" data-title="Account">
-          <h2>Dont have an account?</h2>
-          <input type="text" placeholder="Join Now" />
-        </li>
-      </ul>
-  </div>
+
+  <ul id="accordion">
+    <li data-required="true" data-status="incomplete" data-selected="true" data-title="Work">
+
+      {% include 'home/work.html' %}
+
+    </li>
+    <li data-required="true" data-status="complete" data-title="Press">
+
+
+      {% include 'home/press.html' %}
+
+
+    </li>
+    <li data-required="true" data-status="optional" data-title="Teaching">
+      {% include 'home/teaching.html' %}
+    </li>
+    <li data-required="true" data-status="optional" data-title="About">
+      {% include 'home/about.html' %}
+    </li>
+    <li data-required="true" data-status="optional" data-title="Account">
+
+
+
+      <div id="settings">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'accounts:change_password' %}">Change Password</a>
+        <a href="{% url 'accounts:update_user' request.user.pk %}">Update Settings</a>
+        {% else %}
+        <h1>Please sign in to continue</h1>
+        <a href="{% url 'acounts:login' %}">Sign In</a>
+        {% endif %}
+      </div>
+
+
+
+    </li>
+  </ul>
+</div>
 {% endblock content %}
 
 
@@ -37,20 +76,18 @@ Simon Charwey
 {% block javascript %}
 
 <script>
-    var acjs = undefined;
+  var acjs = undefined;
 
- 
-    $(document ).ready(function() {
-        try {
-          acjs = $('#accordion').accordionjs();
-        }
-        catch(error) {
-          console.log("Error:" + error);
-          alert("Error: "+ error);
-        }
+
+  $(document).ready(function () {
+    try {
+      acjs = $('#accordion').accordionjs();
+    }
+    catch (error) {
+      console.log("Error:" + error);
+      alert("Error: " + error);
+    }
   }); // End $(document).ready(); 
-  </script>
-    
+</script>
+
 {% endblock javascript %}
-    
-    

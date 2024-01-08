@@ -1,9 +1,14 @@
+{% extends 'home/base.html' %}
 {% load static %}
 
 
-<div class="head">
+
+{% block Content %}
+    
+<head>
     <link rel="stylesheet" href="{% static 'dashboard/css/posts.css' %}">
-</div>
+</head>
+    
 <div id="posts">
     <div class="fimg" style="width: 100%;"></div>
     {% for post in posts %}
@@ -25,4 +30,5 @@
     {% endfor %}
         
 
-</div>
+</div>    
+{% endblock Content %}
